@@ -1,0 +1,145 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "A Productive Day at Work",
+      "date": "2023-09-25",
+      "desc": "Today was a really productive day at work. I managed to finish a report ahead of schedule and received positive feedback from my manager.",
+      "category": "Daily Journal",
+      "image": "/img/Image.png"
+    },
+    {
+      "id": "2",
+      "title": "My First Job Interview Experience",
+      "date": "2023-09-24",
+      "desc": "I had my first job interview today. I was nervous at first, but as the conversation went on, I became more confident.",
+      "category": "Work & Career",
+      "image": "/img/Image (1).png"
+    },
+    {
+      "id": "3",
+      "title": "Overthinking Everything",
+      "date": "2023-09-23",
+      "desc": "Lately, I have been overthinking everything, from small decisions to big life choices. It’s exhausting.",
+      "category": "Personal Thoughts",
+      "image": "/img/Image (2).png"
+    },
+    {
+      "id": "4",
+      "title": "How collaboration makes us better designers",
+      "date": "2023-09-22",
+      "desc": "How collaboration can make our teams stronger, and our individual work better.",
+      "category": "Work & Career",
+      "image": "/img/Image (3).png"
+    },
+    {
+      "id": "5",
+      "title": "Our top 10 JavaScript frameworks to use",
+      "date": "2023-09-21",
+      "desc": "A comprehensive list of the top 10 JavaScript frameworks to use in your next project.",
+      "category": "Work & Career",
+      "image": "/img/Image (4).png"
+    },
+    {
+      "id": "6",
+      "title": "Podcast: Creating a better CX Community",
+      "date": "2023-09-20",
+      "desc": "How to build a better community for customer experience professionals.",
+      "category": "Emotions & Feelings",
+      "image": "/img/Image (5).png"
+    }
+  ],
+  "members": [
+    {
+      "id": "1",
+      "name": "Olivia Bryne",
+      "handle": "@olivia",
+      "email": "olivia@untitledui.com",
+      "status": "hoạt động",
+      "avatar": "https://i.pravatar.cc/80?img=1"
+    },
+    {
+      "id": "2",
+      "name": "Phoenix Baker",
+      "handle": "@phoenix",
+      "email": "phoenix@untitledui.com",
+      "status": "hoạt động",
+      "avatar": "https://i.pravatar.cc/80?img=2"
+    },
+    {
+      "id": "3",
+      "name": "Lana Steiner",
+      "handle": "@lana",
+      "email": "lana@untitledui.com",
+      "status": "hoạt động",
+      "avatar": "https://i.pravatar.cc/80?img=3"
+    },
+    {
+      "id": "4",
+      "name": "Demi Wilkinson",
+      "handle": "@demi",
+      "email": "demi@untitledui.com",
+      "status": "hoạt động",
+      "avatar": "https://i.pravatar.cc/80?img=4"
+    },
+    {
+      "id": "5",
+      "name": "Candice Wu",
+      "handle": "@candice",
+      "email": "candice@untitledui.com",
+      "status": "hoạt động",
+      "avatar": "https://i.pravatar.cc/80?img=5"
+    },
+    {
+      "id": "6",
+      "name": "Nati Craig",
+      "handle": "@nati",
+      "email": "nati@untitledui.com",
+      "status": "hoạt động",
+      "avatar": "https://i.pravatar.cc/80?img=6"
+    },
+    {
+      "id": "7",
+      "name": "Drew Cano",
+      "handle": "@drew",
+      "email": "drew@untitledui.com",
+      "status": "hoạt động",
+      "avatar": "https://i.pravatar.cc/80?img=7"
+    },
+    {
+      "id": "8",
+      "name": "Orlando Diggs",
+      "handle": "@orlando",
+      "email": "orlando@untitledui.com",
+      "status": "hoạt động",
+      "avatar": "https://i.pravatar.cc/80?img=8"
+    },
+    {
+      "id": "9",
+      "name": "Ana Lovre",
+      "handle": "@ana",
+      "email": "ana@untitledui.com",
+      "status": "hoạt động",
+      "avatar": "https://i.pravatar.cc/80?img=9"
+    },
+    {
+      "id": "10",
+      "name": "Ken Morrison",
+      "handle": "@ken",
+      "email": "ken@untitledui.com",
+      "status": "hoạt động",
+      "avatar": "https://i.pravatar.cc/80?img=10"
+    }
+  ],
+  "users": [
+    {
+      "id": "1759688051508",
+      "firstName": "le",
+      "lastName": "dong",
+      "fullName": "le dong",
+      "email": "hib59986@gmail.com",
+      "password": "@Dong1234",
+      "createdAt": "2025-10-05T18:14:11.508Z"
+    }
+  ]
+}
