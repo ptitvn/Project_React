@@ -1,29 +1,27 @@
+// src/store/membersSlice.ts
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Member } from "../services/memberApi";
 
-type MembersState = {
+export type MembersState = {
   items: Member[];
   total: number;
 };
 
-const initialState: MembersState = {
-  items: [],
-  total: 0
-};
+const initialState: MembersState = { items: [], total: 0 };
 
 const membersSlice = createSlice({
   name: "members",
   initialState,
   reducers: {
-    setMembers: (s, a: PayloadAction<{ items: Member[]; total: number }>) => {
-      s.items = a.payload.items;
-      s.total = a.payload.total;
+    setMembers: (state, { payload }: PayloadAction<MembersState>) => {
+      state.items = payload.items;
+      state.total = payload.total;
     },
-    updateMemberLocal: (s, a: PayloadAction<Member>) => {
-      const i = s.items.findIndex(m => m.id === a.payload.id);
-      if (i !== -1) s.items[i] = a.payload;
-    }
-  }
+    updateMemberLocal: (state, { payload }: PayloadAction<Member>) => {
+      const idx = state.items.findIndex((m) => m.id === payload.id);
+      if (idx !== -1) state.items[idx] = payload;
+    },
+  },
 });
 
 export const { setMembers, updateMemberLocal } = membersSlice.actions;

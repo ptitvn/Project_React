@@ -1,28 +1,13 @@
 {
   "posts": [
     {
-      "id": "1",
-      "title": "A Productive Day at Work",
-      "date": "2023-09-25",
-      "desc": "Today was a really productive day at work. I managed to finish a report ahead of schedule and received positive feedback from my manager.",
-      "category": "Daily Journal",
-      "image": "/img/Image.png"
-    },
-    {
-      "id": "2",
-      "title": "My First Job Interview Experience",
-      "date": "2023-09-24",
-      "desc": "I had my first job interview today. I was nervous at first, but as the conversation went on, I became more confident.",
-      "category": "Work & Career",
-      "image": "/img/Image (1).png"
-    },
-    {
       "id": "3",
       "title": "Overthinking Everything",
       "date": "2023-09-23",
       "desc": "Lately, I have been overthinking everything, from small decisions to big life choices. It’s exhausting.",
       "category": "Personal Thoughts",
-      "image": "/img/Image (2).png"
+      "image": "/img/Image (2).png",
+      "status": "public"
     },
     {
       "id": "4",
@@ -30,23 +15,74 @@
       "date": "2023-09-22",
       "desc": "How collaboration can make our teams stronger, and our individual work better.",
       "category": "Work & Career",
-      "image": "/img/Image (3).png"
+      "image": "/img/Image (3).png",
+      "status": "private"
     },
     {
-      "id": "5",
-      "title": "Our top 10 JavaScript frameworks to use",
-      "date": "2023-09-21",
-      "desc": "A comprehensive list of the top 10 JavaScript frameworks to use in your next project.",
-      "category": "Work & Career",
-      "image": "/img/Image (4).png"
-    },
-    {
-      "id": "6",
-      "title": "Podcast: Creating a better CX Community",
-      "date": "2023-09-20",
-      "desc": "How to build a better community for customer experience professionals.",
+      "title": "cvajdhks",
       "category": "Emotions & Feelings",
-      "image": "/img/Image (5).png"
+      "date": "2025-10-08",
+      "desc": "v",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/v1759935922/urpne3t3falzphh2lyyg.png",
+      "status": "public",
+      "id": "1424"
+    },
+    {
+      "id": "ffe4",
+      "title": "ngay moi",
+      "category": "Emotions & Feelings",
+      "date": "2025-10-09",
+      "desc": "vcdbhfsk",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/v1759991723/owigr2sprjaa7veeagsf.png",
+      "status": "public"
+    },
+    {
+      "title": "acxda",
+      "category": "Work & Career",
+      "date": "2025-10-10",
+      "desc": "cda",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760082271/tuqolvft6j7ykjjpfgm9.png",
+      "status": "public",
+      "authorId": "admin-1",
+      "authorEmail": "admin@site.com",
+      "isMine": true,
+      "id": "4491"
+    },
+    {
+      "title": "testdemo",
+      "category": "Emotions & Feelings",
+      "date": "2025-10-10",
+      "desc": "tessaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagg",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760082719/tn1f6bbjutjs30n11ex7.png",
+      "status": "private",
+      "authorId": "1759989931529",
+      "authorEmail": "admin@gmail.com",
+      "isMine": true,
+      "id": "c170"
+    },
+    {
+      "title": "dsxsx",
+      "category": "Emotions & Feelings",
+      "date": "2025-10-10",
+      "desc": "sdcdvdsv",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760085405/w2bffqnffbljvsh9kgbb.png",
+      "status": "private",
+      "authorId": "admin-1",
+      "authorEmail": "admin@site.com",
+      "isMine": true,
+      "id": "c7d0"
+    },
+    {
+      "title": "test",
+      "category": "Work & Career",
+      "date": "2025-10-11",
+      "desc": "k,uhbdfbfd",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760188214/sgnpp2agmu9t5lfxqozr.png",
+      "status": "public",
+      "authorId": "1759735440047",
+      "authorEmail": "khanh@gmail.com",
+      "isMine": true,
+      "id": "e180"
     }
   ],
   "members": [
@@ -129,9 +165,35 @@
       "email": "ken@untitledui.com",
       "status": "hoạt động",
       "avatar": "https://i.pravatar.cc/80?img=10"
+    },
+    {
+      "id": "da06",
+      "name": "bd bdf",
+      "handle": "@bdbdf",
+      "email": "khanh@gmail.com",
+      "status": "hoạt động",
+      "avatar": "https://i.pravatar.cc/80?u=khanh%40gmail.com"
+    },
+    {
+      "id": "eb09",
+      "name": "test admin",
+      "handle": "@testadmin",
+      "email": "admin@gmail.com",
+      "status": "hoạt động",
+      "avatar": "https://i.pravatar.cc/80?u=admin%40gmail.com"
     }
   ],
   "users": [
+    {
+      "id": "admin-1",
+      "firstName": "Admin",
+      "lastName": "",
+      "fullName": "Admin",
+      "email": "admin@site.com",
+      "password": "123456",
+      "role": "admin",
+      "createdAt": "2025-10-09T00:00:00.000Z"
+    },
     {
       "id": "1759688051508",
       "firstName": "le",
@@ -139,7 +201,82 @@
       "fullName": "le dong",
       "email": "hib59986@gmail.com",
       "password": "@Dong1234",
+      "role": "user",
       "createdAt": "2025-10-05T18:14:11.508Z"
+    },
+    {
+      "id": "1759735440047",
+      "firstName": "bd",
+      "lastName": "bdf",
+      "fullName": "bd bdf",
+      "email": "khanh@gmail.com",
+      "password": "@Dong1234",
+      "role": "user",
+      "createdAt": "2025-10-06T07:24:00.047Z"
+    },
+    {
+      "id": "1759989931529",
+      "firstName": "test",
+      "lastName": "admin",
+      "fullName": "test admin",
+      "email": "admin@gmail.com",
+      "password": "123456",
+      "role": "user",
+      "createdAt": "2025-10-09T06:05:31.529Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": "emotions",
+      "name": "Emotions & Feelings"
+    },
+    {
+      "id": "personal",
+      "name": "Personal Thoughts"
+    },
+    {
+      "id": "work",
+      "name": "Work & Career"
+    },
+    {
+      "id": "ca76",
+      "name": "test"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1760196972040",
+      "postId": "e180",
+      "authorId": "1759735440047",
+      "authorEmail": "khanh@gmail.com",
+      "text": "bfvdvbd",
+      "createdAt": "2025-10-11T15:36:12.040Z"
+    },
+    {
+      "id": "1760196993804",
+      "postId": "c170",
+      "authorId": "1759989931529",
+      "authorEmail": "admin@gmail.com",
+      "authorName": "admin",
+      "avatar": "https://i.pravatar.cc/80?u=admin%40gmail.com",
+      "text": "vsvsvd",
+      "createdAt": "2025-10-11T15:36:33.804Z"
+    },
+    {
+      "id": "1760197006508",
+      "postId": "e180",
+      "authorId": "1759989931529",
+      "authorEmail": "admin@gmail.com",
+      "text": "vsds",
+      "createdAt": "2025-10-11T15:36:46.508Z"
+    },
+    {
+      "id": "1760208326542",
+      "postId": null,
+      "authorId": "1759735440047",
+      "authorEmail": "khanh@gmail.com",
+      "text": "vui ha",
+      "createdAt": "2025-10-11T18:45:26.542Z"
     }
   ]
 }

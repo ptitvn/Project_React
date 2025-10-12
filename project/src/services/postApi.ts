@@ -1,37 +1,46 @@
+// src/services/postApi.ts
 import axios from 'axios';
 
 export const BASE_URL = 'http://localhost:8080/posts';
 
 export type Post = {
-  id: string;
+  id: string | number;
   title: string;
-  date: string;       // ISO date
+  date: string;            // hiển thị "Date: ..."
   desc: string;
   category: string;
-  image: string;      // path từ public, ví dụ: /images/image-1.png
+  image: string;
+  createdAt?: string;      // ⬅ thêm: dùng để sort chính
 };
 
 export const fetchPosts = async () => {
   const res = await axios.get<Post[]>(BASE_URL);
-  // sắp xếp mới → cũ giống UI cũ
-  return [...res.data].sort((a, b) => (a.date < b.date ? 1 : -1));
+  return [...res.data].sort((a, b) => {
+    const ka = a.createdAt || a.date || '';
+    const kb = b.createdAt || b.date || '';
+    if (ka !== kb) return ka < kb ? 1 : -1;          // createdAt/date ↓
+
+    // Tie-break: id ↓ (ưu tiên số nếu có)
+    const ida = Number(a.id), idb = Number(b.id);
+    if (!Number.isNaN(ida) && !Number.isNaN(idb)) return idb - ida;
+    return String(b.id).localeCompare(String(a.id));
+  });
 };
 
-export const fetchPostById = async (id: string) => {
+export const fetchPostById = async (id: string | number) => {
   const res = await axios.get<Post>(`${BASE_URL}/${id}`);
   return res.data;
 };
 
-// (tuỳ chọn) CRUD nếu sau này bạn cần:
 export const addPost = async (post: Omit<Post, 'id'>) => {
-  const newPost: Post = { ...post, id: Date.now().toString() };
+  const newPost: Post = { ...post, id: Date.now().toString(), createdAt: new Date().toISOString() };
   const res = await axios.post<Post>(BASE_URL, newPost);
   return res.data;
 };
-export const updatePost = async (id: string, patch: Partial<Post>) => {
+export const updatePost = async (id: string | number, patch: Partial<Post>) => {
   const res = await axios.patch<Post>(`${BASE_URL}/${id}`, patch);
   return res.data;
 };
-export const deletePost = async (id: string) => {
+export const deletePost = async (id: string | number) => {
   await axios.delete(`${BASE_URL}/${id}`);
 };

@@ -1,30 +1,26 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Post } from '../services/postApi';
+// src/store/postsSlice.ts
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { Post } from "../services/postApi";
 
-type PostsState = {
-  items: Post[];
-};
-
-const initialState: PostsState = {
-  items: [],
-};
+type PostsState = { items: Post[] };
+const initialState: PostsState = { items: [] };
 
 const postsSlice = createSlice({
-  name: 'posts',
+  name: "posts",
   initialState,
   reducers: {
-    setPosts: (state, action: PayloadAction<Post[]>) => {
-      state.items = action.payload;
+    setPosts: (state, { payload }: PayloadAction<Post[]>) => {
+      state.items = payload;
     },
-    addPostLocal: (state, action: PayloadAction<Post>) => {
-      state.items.unshift(action.payload);
+    addPostLocal: (state, { payload }: PayloadAction<Post>) => {
+      state.items.unshift(payload);
     },
-    updatePostLocal: (state, action: PayloadAction<Post>) => {
-      const i = state.items.findIndex(p => p.id === action.payload.id);
-      if (i !== -1) state.items[i] = action.payload;
+    updatePostLocal: (state, { payload }: PayloadAction<Post>) => {
+      const i = state.items.findIndex((p) => p.id === payload.id);
+      if (i !== -1) state.items[i] = payload;
     },
-    deletePostLocal: (state, action: PayloadAction<string>) => {
-      state.items = state.items.filter(p => p.id !== action.payload);
+    deletePostLocal: (state, { payload }: PayloadAction<Post["id"]>) => {
+      state.items = state.items.filter((p) => p.id !== payload);
     },
   },
 });

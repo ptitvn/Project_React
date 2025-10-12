@@ -7,24 +7,32 @@ import ManagerUser from "../pages/admin/ManagerUser";
 import AddArticleForm from "../components/AddArticleForm";
 import PostDetail from "../pages/user/PostDetail";
 import BlogPage from "../components/BlogPage";
+import ManagePost from "../pages/admin/ManagePost";
 
 const AppRoutes = () => (
   <Routes>
-    {/* phần chi tiết bài viết n2*/}
+    {/* phần quản lý bài viết n2*/}
+    <Route path="/ManagePost" element={<ManagePost />} />
     <Route path="/PostDetail" element={<PostDetail />} />
+
     {/* phần quản lý user */}
     <Route path="/ManagerUser" element={<ManagerUser />} />
+
     {/* phần quản lý bài viết n2*/}
     <Route path="/ArticleManager" element={<ArticleManager />} />
+
     {/* phần quản lý danh mục */}
     <Route path="/CategoryManager" element={<CategoryManager />} />
+
     {/* phần thêm bài viết n2*/}
-    <Route path="/AddArticleForm" element={<AddArticleForm />} />
+    <Route path="/AddArticleForm" element={<AddArticleForm categories={[]}/>} />
+
     {/* phần trang blog n1*/}
     <Route path="/BlogPage" element={<BlogPage />} />
+    
     {/* phần đăng ký đăng nhập n1 */}
     <Route path="/login" element={<Login />} />
-    <Route path="/Register" element={<Register />} />
+    <Route path="/" element={<Register />} />
 
   </Routes>
 );
