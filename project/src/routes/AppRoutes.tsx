@@ -26,7 +26,6 @@ const AppRoutes = () => (
     
     <Route path="/login" element={<Login />} />
     <Route path="/" element={<Register />} />
-
   </Routes>
 );
 
