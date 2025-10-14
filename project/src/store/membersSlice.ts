@@ -1,4 +1,3 @@
-// src/store/membersSlice.ts
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Member } from "../services/memberApi";
 

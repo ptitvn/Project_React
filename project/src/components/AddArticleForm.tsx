@@ -1,5 +1,4 @@
-// src/components/AddArticleForm.tsx
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
 /* API & Upload */
@@ -22,7 +21,6 @@ async function uploadToCloudinary(file: File): Promise<string> {
   return data.secure_url as string;
 }
 
-/* Chuẩn hoá URL Cloudinary (ảnh 16:9, fill khung) */
 function transformCloudinaryUrl(url: string): string {
   const marker = "/image/upload/";
   const i = url.indexOf(marker);
@@ -44,7 +42,7 @@ export type Post = {
   authorId?: string | number;
   authorEmail?: string;
   isMine?: boolean;
-  createdAt?: string; // ⬅️ thêm: dùng để sort bài mới lên đầu
+  createdAt?: string;
 };
 
 export type Category = { id: string | number; name: string };
@@ -68,6 +66,21 @@ const AddArticleForm: React.FC<Props> = ({ categories, initial, onClose, onSaved
   const [content, setContent] = useState(initial?.desc ?? "");
   const [status, setStatus] = useState<"public" | "private">(initial?.status ?? "public");
   const [file, setFile] = useState<File | null>(null);
+
+  // Preview ảnh (nếu chọn file mới)
+  const [preview, setPreview] = useState<string | null>(null);
+  useEffect(() => {
+    if (!file) { setPreview(null); return; }
+    const url = URL.createObjectURL(file);
+    setPreview(url);
+    return () => URL.revokeObjectURL(url);
+  }, [file]);
+
+  // Ảnh hiện có của bài (khi SỬA)
+  const currentImage = useMemo(() => {
+    const src = initial?.image || PLACEHOLDER;
+    return transformCloudinaryUrl(src);
+  }, [initial?.image]);
 
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: "ok" | "err"; text: string } | null>(null);
@@ -100,7 +113,6 @@ const AddArticleForm: React.FC<Props> = ({ categories, initial, onClose, onSaved
       if (file) imageUrl = await uploadToCloudinary(file);
       if (imageUrl) imageUrl = transformCloudinaryUrl(imageUrl);
 
-      // lấy user hiện tại
       let owner: Partial<Post> = {};
       try {
         const raw = sessionStorage.getItem("authUser");
@@ -108,12 +120,12 @@ const AddArticleForm: React.FC<Props> = ({ categories, initial, onClose, onSaved
         if (me && !isEdit) owner = { authorId: me.id, authorEmail: me.email, isMine: true };
       } catch {}
 
-      // ⬇️ tạo dữ liệu chung (KHÔNG đổi giao diện)
+      // Dữ liệu lưu
       const base: Post = {
         title,
         category,
         date: initial?.date ?? new Date().toISOString().slice(0, 10),
-        createdAt: initial?.createdAt ?? new Date().toISOString(), // ⬅️ thêm: thời gian tạo chuẩn ISO
+        createdAt: initial?.createdAt ?? new Date().toISOString(),
         desc: content,
         image: imageUrl || PLACEHOLDER,
         status,
@@ -151,7 +163,6 @@ const AddArticleForm: React.FC<Props> = ({ categories, initial, onClose, onSaved
 
   return (
     <div>
-      {/* giữ nguyên UI */}
       <style>{`select::-ms-expand{display:none;}`}</style>
 
       <div className="mb-6 flex items-center justify-end pt-5">
@@ -219,18 +230,6 @@ const AddArticleForm: React.FC<Props> = ({ categories, initial, onClose, onSaved
           />
         </div>
 
-        <div className="flex items-center gap-6">
-          <label className="text-sm font-semibold">Status:</label>
-          <label className="flex items-center gap-2">
-            <input type="radio" checked={status === "public"} onChange={() => setStatus("public")} />
-            <span>public</span>
-          </label>
-          <label className="flex items-center gap-2">
-            <input type="radio" checked={status === "private"} onChange={() => setStatus("private")} />
-            <span>private</span>
-          </label>
-        </div>
-
         <div className="max-w-[300px]">
           <label className="mb-2 block text-sm font-semibold">Upload:</label>
           <div className="relative rounded border-2 border-dashed border-gray-300 p-6">
@@ -253,6 +252,52 @@ const AddArticleForm: React.FC<Props> = ({ categories, initial, onClose, onSaved
             </label>
             {file && <p className="mt-2 text-xs text-gray-500">Selected: {file.name}</p>}
           </div>
+
+          {isEdit && !preview && (
+            <div className="mt-3">
+              <p className="text-xs text-gray-500 mb-1">Ảnh hiện tại:</p>
+              <div className="relative aspect-[16/9] w-full max-w-[420px] overflow-hidden rounded-lg border">
+                <img
+                  src={currentImage}
+                  alt="Current image"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </div>
+            </div>
+          )}
+
+          {preview && (
+            <div className="mt-3">
+              <p className="text-xs text-gray-500 mb-1">Ảnh mới (chưa lưu):</p>
+              <div className="relative aspect-[16/9] w-full max-w-[420px] overflow-hidden rounded-lg border">
+                <img
+                  src={preview}
+                  alt="New selected preview"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </div>
+              <button
+                type="button"
+                onClick={() => setFile(null)}
+                className="mt-2 text-xs text-gray-600 hover:underline"
+                title="Bỏ ảnh vừa chọn"
+              >
+                Bỏ ảnh vừa chọn
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div className="flex items-center gap-6 -mt-2">
+          <label className="text-sm font-semibold">Status:</label>
+          <label className="flex items-center gap-2">
+            <input type="radio" checked={status === "public"} onChange={() => setStatus("public")} />
+            <span>public</span>
+          </label>
+          <label className="flex items-center gap-2">
+            <input type="radio" checked={status === "private"} onChange={() => setStatus("private")} />
+            <span>private</span>
+          </label>
         </div>
 
         <div className="flex items-center gap-3 -mt-2">

@@ -1,4 +1,3 @@
-// src/pages/admin/ArticleManager.tsx
 import React, { useEffect, useMemo, useState } from "react";
 import {
   UserGroupIcon,
@@ -23,9 +22,9 @@ const ADMIN_EMAIL = "admin@site.com";
 const normalizeImg = (src?: string) => {
   if (!src) return PLACEHOLDER;
   let s = String(src).trim();
-  if (/^https?:\/\//i.test(s)) return s;   // URL ngoài
-  s = s.replace(/\\/g, "/");                // windows slash
-  if (!s.startsWith("/")) s = "/" + s;      // thêm slash đầu
+  if (/^https?:\/\//i.test(s)) return s;   
+  s = s.replace(/\\/g, "/");               
+  if (!s.startsWith("/")) s = "/" + s;    
   return s;
 };
 const imgFallback: React.ReactEventHandler<HTMLImageElement> = (e) => {
@@ -192,36 +191,49 @@ const ArticleManager: React.FC = () => {
               <tbody>
                 {loading && (
                   <tr>
-                    <td colSpan={7} className="px-4 py-6 text-gray-500">Đang tải…</td>
+                    <td colSpan={7} className="px-4 py-6 text-gray-500 align-middle">Đang tải…</td>
                   </tr>
                 )}
                 {err && !loading && (
                   <tr>
-                    <td colSpan={7} className="px-4 py-6 text-red-600">Lỗi: {err}</td>
+                    <td colSpan={7} className="px-4 py-6 text-red-600 align-middle">Lỗi: {err}</td>
                   </tr>
                 )}
                 {!loading && !err && currentItems.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="px-4 py-6 text-gray-600">Chưa có bài viết.</td>
+                    <td colSpan={7} className="px-4 py-6 text-gray-600 align-middle">Chưa có bài viết.</td>
                   </tr>
                 )}
 
                 {!loading && !err && currentItems.map((p) => (
                   <tr key={String(p.id)} className="border-b border-gray-100">
-                    <td className="px-4 py-3">
-                      <img
-                        src={normalizeImg(p.image)}
-                        onError={imgFallback}
-                        alt={p.title}
-                        className="w-16 h-16 object-cover rounded"
-                        loading="lazy"
-                        decoding="async"
-                      />
+                    <td className="px-4 py-3 w-[140px] min-w-[140px] align-middle">
+                      <div className="w-[128px] h-[72px] overflow-hidden rounded bg-gray-50">
+                        <img
+                          src={normalizeImg(p.image)}
+                          onError={imgFallback}
+                          alt={p.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
                     </td>
-                    <td className="px-4 py-3">{p.title}</td>
-                    <td className="px-4 py-3">{p.category}</td>
-                    <td className="px-4 py-3 line-clamp-2 max-w-[340px]">{p.desc}</td>
-                    <td className="px-4 py-3">
+
+                    {/* Tiêu đề */}
+                    <td className="px-4 py-3 align-middle">{p.title}</td>
+
+                    {/* Chủ đề */}
+                    <td className="px-4 py-3 align-middle">{p.category}</td>
+
+                    <td className="px-4 py-3 align-middle">
+                      <div className="max-w-[360px] whitespace-pre-wrap [overflow-wrap:anywhere] line-clamp-2">
+                        {p.desc}
+                      </div>
+                    </td>
+
+                    {/* Trạng thái */}
+                    <td className="px-4 py-3 align-middle">
                       <span
                         className={`px-2 py-1 rounded text-xs ${
                           (p.status ?? "public") === "public" ? "bg-green-100 text-green-700" : "bg-pink-100 text-pink-700"
@@ -230,7 +242,8 @@ const ArticleManager: React.FC = () => {
                         {(p.status ?? "public") === "public" ? "Public" : "Private"}
                       </span>
                     </td>
-                    <td className="px-4 py-3">
+
+                    <td className="px-4 py-3 align-middle">
                       <select
                         className="border rounded px-2 py-1 text-sm"
                         value={p.status ?? "public"}
@@ -240,7 +253,9 @@ const ArticleManager: React.FC = () => {
                         <option value="private">Private</option>
                       </select>
                     </td>
-                    <td className="px-4 py-3">
+
+                    {/* Hành động */}
+                    <td className="px-4 py-3 align-middle">
                       <div className="flex gap-2">
                         <button onClick={() => openEdit(p)} className="bg-green-500 text-white px-3 py-1 rounded text-sm">Sửa</button>
                         <button onClick={() => onDelete(p.id)} className="bg-red-500 text-white px-3 py-1 rounded text-sm">Xóa</button>
@@ -291,7 +306,7 @@ const ArticleManager: React.FC = () => {
       {/* Modal Add/Edit */}
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-          <div className="w-full max-w-xl rounded-lg bg-white p-6 shadow-lg">
+          <div className="w-full max-w-xl rounded-xl bg-white p-6 shadow-lg max-h-[95vh] overflow-y-auto overscroll-contain">
             <AddArticleForm
               categories={categories}
               initial={editing || undefined}
@@ -302,12 +317,8 @@ const ArticleManager: React.FC = () => {
                 setOpen(false);
                 setEditing(null);
                 const data = await loadPosts();
-                if (wasEditing) {
-                  setPage(currentPage);
-                } else {
-                  const last = Math.max(1, Math.ceil(data.length / PAGE_SIZE));
-                  setPage(last);
-                }
+                if (wasEditing) setPage(currentPage);
+                else setPage(Math.max(1, Math.ceil(data.length / PAGE_SIZE)));
               }}
             />
           </div>

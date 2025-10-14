@@ -9,7 +9,7 @@ type Props = {
 };
 
 const ArticleCard: React.FC<Props> = ({ title, date, category, description, image }) => {
-  // Màu category
+  //  category
   const categoryColor =
     category === "Work & Career"
       ? "text-blue-500"

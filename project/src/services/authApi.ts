@@ -1,9 +1,8 @@
-// src/services/authApi.ts
 import axios from "axios";
 
 const BASE = "http://localhost:8080/users";
 
-/* ===== Types ===== */
+/* Types*/
 export type User = {
   id: string | number;
   firstName?: string;
@@ -17,7 +16,7 @@ export type User = {
 
 type PublicUser = Omit<User, "password">;
 
-/* ===== Helpers ===== */
+/*Helpers */
 const toList = <T,>(data: any): T[] => (Array.isArray(data) ? data : []);
 const lower = (s: string) => s.trim().toLowerCase();
 
@@ -28,7 +27,7 @@ function sanitize(u: User | null | undefined): PublicUser | null {
   return { ...rest, role: (role as "admin" | "user") ?? "user" };
 }
 
-/* ===== API ===== */
+/*API */
 
 /** Kiểm tra email đã tồn tại (không phân biệt hoa/thường) */
 export async function isEmailTaken(email: string) {
@@ -69,16 +68,13 @@ export async function registerUser(input: {
   return sanitize(data)!;
 }
 
-/** Đăng nhập: ưu tiên truy vấn exact (email+password), nếu không có thì fallback so email (case-insensitive) */
 export async function loginUser(email: string, password: string) {
   const trimmed = email.trim();
 
-  // 1) Exact (nhanh nhất với json-server)
   const rexact = await axios.get<User[]>(BASE, { params: { email: trimmed, password } });
   const exactUser = toList<User>(rexact.data)[0];
   if (exactUser) return sanitize(exactUser);
 
-  // 2) Fallback: tìm theo email (case-insensitive) rồi đối chiếu password phía client
   const rq = await axios.get<User[]>(BASE, { params: { q: trimmed } });
   const user = toList<User>(rq.data).find((u) => lower(u.email || "") === lower(trimmed));
   if (!user || user.password !== password) return null;

@@ -11,26 +11,19 @@ import ManagePost from "../pages/admin/ManagePost";
 
 const AppRoutes = () => (
   <Routes>
-    {/* phần quản lý bài viết n2*/}
     <Route path="/ManagePost" element={<ManagePost />} />
     <Route path="/PostDetail" element={<PostDetail />} />
 
-    {/* phần quản lý user */}
     <Route path="/ManagerUser" element={<ManagerUser />} />
 
-    {/* phần quản lý bài viết n2*/}
     <Route path="/ArticleManager" element={<ArticleManager />} />
 
-    {/* phần quản lý danh mục */}
     <Route path="/CategoryManager" element={<CategoryManager />} />
 
-    {/* phần thêm bài viết n2*/}
     <Route path="/AddArticleForm" element={<AddArticleForm categories={[]}/>} />
 
-    {/* phần trang blog n1*/}
     <Route path="/BlogPage" element={<BlogPage />} />
     
-    {/* phần đăng ký đăng nhập n1 */}
     <Route path="/login" element={<Login />} />
     <Route path="/" element={<Register />} />
 

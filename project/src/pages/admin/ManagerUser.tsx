@@ -1,4 +1,3 @@
-// src/pages/admin/ManagerUser.tsx
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   UserGroupIcon,
@@ -12,7 +11,7 @@ import {
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-/* ===== Types & constants ===== */
+/* Types & constants  */
 type Member = {
   id: string | number;
   name: string;
@@ -46,7 +45,7 @@ const pageList = (cur: number, total: number): (number | string)[] => {
   return [1, "…", cur - 1, cur, cur + 1, "…", total];
 };
 
-/* ===== Reusable ===== */
+/*  Reusable  */
 const SidebarLink = ({ icon, label, to }: { icon: React.ReactNode; label: string; to: string }) => (
   <Link
     to={to}
@@ -57,7 +56,7 @@ const SidebarLink = ({ icon, label, to }: { icon: React.ReactNode; label: string
   </Link>
 );
 
-/* ===== Page ===== */
+/* Page  */
 const ManagerUser: React.FC = () => {
   const navigate = useNavigate();
 

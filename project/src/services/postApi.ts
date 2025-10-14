@@ -6,11 +6,11 @@ export const BASE_URL = 'http://localhost:8080/posts';
 export type Post = {
   id: string | number;
   title: string;
-  date: string;            // hiển thị "Date: ..."
+  date: string;           
   desc: string;
   category: string;
   image: string;
-  createdAt?: string;      // ⬅ thêm: dùng để sort chính
+  createdAt?: string;      
 };
 
 export const fetchPosts = async () => {
@@ -18,9 +18,8 @@ export const fetchPosts = async () => {
   return [...res.data].sort((a, b) => {
     const ka = a.createdAt || a.date || '';
     const kb = b.createdAt || b.date || '';
-    if (ka !== kb) return ka < kb ? 1 : -1;          // createdAt/date ↓
+    if (ka !== kb) return ka < kb ? 1 : -1;     
 
-    // Tie-break: id ↓ (ưu tiên số nếu có)
     const ida = Number(a.id), idb = Number(b.id);
     if (!Number.isNaN(ida) && !Number.isNaN(idb)) return idb - ida;
     return String(b.id).localeCompare(String(a.id));

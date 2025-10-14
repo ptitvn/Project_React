@@ -1,4 +1,3 @@
-// src/store/postsSlice.ts
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Post } from "../services/postApi";
 

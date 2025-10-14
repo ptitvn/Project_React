@@ -1,4 +1,3 @@
-// src/pages/admin/CategoryManager.tsx
 import React, { useEffect, useMemo, useState } from "react";
 import {
   UserGroupIcon,
@@ -17,7 +16,7 @@ type Category = { id: string | number; name: string };
 const API = "http://localhost:8080/categories";
 const ADMIN_EMAIL = "admin@site.com";
 
-/* ---------------- Helpers ---------------- */
+/*  Helpers */
 const isAdmin = () => {
   try {
     const raw = sessionStorage.getItem("authUser");
@@ -48,7 +47,7 @@ const SidebarLink = ({
   </Link>
 );
 
-/* ---------------- Page ---------------- */
+/* Page */
 const CategoryManager: React.FC = () => {
   const navigate = useNavigate();
 
@@ -175,7 +174,7 @@ const CategoryManager: React.FC = () => {
     navigate("/login", { replace: true, state: { msg: "Đăng xuất thành công." } });
   };
 
-  /* ----------- UI (giữ nguyên giao diện) ----------- */
+  /* UI */
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}

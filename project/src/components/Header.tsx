@@ -6,25 +6,18 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ===== Auth (đọc từ sessionStorage + lắng nghe sự kiện đổi trạng thái trong/ngoài tab) =====
+  // Auth
   const [authUser, setAuthUser] = React.useState<any>(null);
-
   React.useEffect(() => {
     const read = () => {
       try {
         const raw = sessionStorage.getItem("authUser");
         setAuthUser(raw ? JSON.parse(raw) : null);
-      } catch {
-        setAuthUser(null);
-      }
+      } catch { setAuthUser(null); }
     };
     read();
-
-    // 'storage' chạy khi đổi ở tab khác
     const onStorage = (e: StorageEvent) => { if (e.key === "authUser") read(); };
-    // custom events để cập nhật ngay trong tab hiện tại
     const onAuthChanged = () => read();
-
     window.addEventListener("storage", onStorage);
     window.addEventListener("auth:changed", onAuthChanged);
     window.addEventListener("auth:logout", onAuthChanged);
@@ -38,7 +31,7 @@ const Header: React.FC = () => {
   const userEmail = authUser?.email || "guest@example.com";
   const userName  = authUser ? (userEmail.split("@")[0] || "User") : "Guest";
 
-  // ===== Dropdown (đóng khi click ra ngoài) =====
+  // Dropdown avatar
   const [open, setOpen] = React.useState(false);
   const boxRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
@@ -49,28 +42,40 @@ const Header: React.FC = () => {
     return () => document.removeEventListener("mousedown", onDown);
   }, []);
 
-  // ===== Search (đồng bộ với URL hiện tại) =====
-  const [term, setTerm] = React.useState(() => new URLSearchParams(location.search).get("search") || "");
+  // Search realtime
+  const [term, setTerm] = React.useState(
+    () => new URLSearchParams(location.search).get("search") || ""
+  );
   React.useEffect(() => {
     setTerm(new URLSearchParams(location.search).get("search") || "");
   }, [location.search]);
 
+  const inManage = location.pathname.toLowerCase().includes("/managepost");
+  const basePath = inManage ? "/ManagePost" : "/BlogPage";
+
+  // Debounce điều hướng khi gõ
+  React.useEffect(() => {
+    const q = term.trim();
+    const t = setTimeout(() => {
+      if (!q) navigate(basePath, { replace: true });
+      else navigate(`${basePath}?search=${encodeURIComponent(q)}`, { replace: true });
+    }, 300);
+    return () => clearTimeout(t);
+  }, [term, basePath, navigate]);
+
   const doSearch = React.useCallback(() => {
     const q = term.trim();
-    const inManage = location.pathname.toLowerCase().includes("/managepost");
-    const path = inManage ? "/ManagePost" : "/BlogPage";
-    navigate(q ? `${path}?search=${encodeURIComponent(q)}` : path);
+    if (!q) navigate(basePath, { replace: true });
+    else navigate(`${basePath}?search=${encodeURIComponent(q)}`, { replace: true });
     setOpen(false);
-  }, [navigate, term, location.pathname]);
+  }, [navigate, term, basePath]);
 
   const handleLogout = () => {
     if (!authUser) return;
     if (!confirm("Bạn có chắc muốn đăng xuất không?")) return;
     sessionStorage.removeItem("authUser");
-    // phát tín hiệu để mọi trang trong tab cập nhật ngay
     window.dispatchEvent(new Event("auth:logout"));
     window.dispatchEvent(new Event("auth:changed"));
-    // replace để không back lại được
     navigate("/login", { replace: true, state: { msg: "Đăng xuất thành công." } });
   };
 
@@ -88,7 +93,6 @@ const Header: React.FC = () => {
         </h1>
       </div>
 
-      {/* Search */}
       <div className="flex-1 max-w-md mx-6 relative">
         <input
           type="text"
@@ -125,7 +129,6 @@ const Header: React.FC = () => {
 
         {open && (
           <div className="absolute right-0 mt-2 w-56 rounded-md border border-gray-200 bg-white shadow-lg z-50">
-            {/* Info */}
             <div className="px-3 py-2 border-b border-gray-100">
               <div className="flex items-center gap-2">
                 <span className="inline-block w-8 h-8 rounded-full overflow-hidden ring-1 ring-gray-200">
@@ -142,40 +145,29 @@ const Header: React.FC = () => {
               </div>
             </div>
 
-            {/* Menu */}
             <div className="py-1 text-sm">
-              <button
-                className="w-full text-left px-3 py-2 hover:bg-gray-50"
-                onClick={() => { setOpen(false); navigate("/BlogPage"); }}
-              >
+              <button className="w-full text-left px-3 py-2 hover:bg-gray-50"
+                      onClick={() => { setOpen(false); navigate("/BlogPage"); }}>
                 Home
               </button>
-              <button
-                className="w-full text-left px-3 py-2 hover:bg-gray-50"
-                onClick={() => { setOpen(false); navigate("/ManagePost"); }}
-              >
+              <button className="w-full text-left px-3 py-2 hover:bg-gray-50"
+                      onClick={() => { setOpen(false); navigate("/ManagePost"); }}>
                 Manage posts
               </button>
 
               {authUser ? (
-                <button
-                  onClick={handleLogout}
-                  className="w-full text-left px-3 py-2 hover:bg-gray-50 text-red-600"
-                >
+                <button onClick={handleLogout}
+                        className="w-full text-left px-3 py-2 hover:bg-gray-50 text-red-600">
                   Log out
                 </button>
               ) : (
                 <>
-                  <button
-                    className="w-full text-left px-3 py-2 hover:bg-gray-50 text-blue-600"
-                    onClick={() => { setOpen(false); navigate("/login"); }}
-                  >
+                  <button className="w-full text-left px-3 py-2 hover:bg-gray-50 text-blue-600"
+                          onClick={() => { setOpen(false); navigate("/login"); }}>
                     Sign in
                   </button>
-                  <button
-                    className="w-full text-left px-3 py-2 hover:bg-gray-50"
-                    onClick={() => { setOpen(false); navigate("/"); }}
-                  >
+                  <button className="w-full text-left px-3 py-2 hover:bg-gray-50"
+                          onClick={() => { setOpen(false); navigate("/"); }}>
                     Sign up
                   </button>
                 </>

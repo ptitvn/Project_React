@@ -24,7 +24,7 @@
       "date": "2025-10-08",
       "desc": "v",
       "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/v1759935922/urpne3t3falzphh2lyyg.png",
-      "status": "public",
+      "status": "private",
       "id": "1424"
     },
     {
@@ -34,7 +34,7 @@
       "date": "2025-10-09",
       "desc": "vcdbhfsk",
       "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/v1759991723/owigr2sprjaa7veeagsf.png",
-      "status": "public"
+      "status": "private"
     },
     {
       "title": "acxda",
@@ -52,9 +52,10 @@
       "title": "testdemo",
       "category": "Emotions & Feelings",
       "date": "2025-10-10",
-      "desc": "tessaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagg",
-      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760082719/tn1f6bbjutjs30n11ex7.png",
-      "status": "private",
+      "createdAt": "2025-10-14T03:45:47.561Z",
+      "desc": "tessaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaatessaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaatessaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaatessaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760082719/tn1f6bbjutjs30n11ex7.png",
+      "status": "public",
       "authorId": "1759989931529",
       "authorEmail": "admin@gmail.com",
       "isMine": true,
@@ -66,7 +67,7 @@
       "date": "2025-10-10",
       "desc": "sdcdvdsv",
       "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760085405/w2bffqnffbljvsh9kgbb.png",
-      "status": "private",
+      "status": "public",
       "authorId": "admin-1",
       "authorEmail": "admin@site.com",
       "isMine": true,
@@ -76,13 +77,118 @@
       "title": "test",
       "category": "Work & Career",
       "date": "2025-10-11",
-      "desc": "k,uhbdfbfd",
-      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760188214/sgnpp2agmu9t5lfxqozr.png",
-      "status": "public",
+      "createdAt": "2025-10-13T05:56:45.630Z",
+      "desc": "k,uhbd",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760188214/sgnpp2agmu9t5lfxqozr.png",
+      "status": "private",
       "authorId": "1759735440047",
       "authorEmail": "khanh@gmail.com",
       "isMine": true,
       "id": "e180"
+    },
+    {
+      "id": "1772",
+      "title": "nfnf",
+      "category": "Emotions & Feelings",
+      "date": "2025-10-13",
+      "createdAt": "2025-10-13T04:42:43.436Z",
+      "desc": "bfbf",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760330569/b61pe2shcxzukgnd9buh.png",
+      "status": "public",
+      "authorId": "admin-1",
+      "authorEmail": "admin@site.com",
+      "isMine": true
+    },
+    {
+      "id": "2af7",
+      "title": "tfr",
+      "category": "Emotions & Feelings",
+      "date": "2025-10-14",
+      "createdAt": "2025-10-14T03:46:22.289Z",
+      "desc": "ed",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760413588/tmvx5zawfimh8ak2yliu.png",
+      "status": "public",
+      "authorId": "1759989931529",
+      "authorEmail": "admin@gmail.com",
+      "isMine": true
+    },
+    {
+      "title": "e",
+      "category": "Emotions & Feelings",
+      "date": "2025-10-14",
+      "createdAt": "2025-10-14T03:46:35.294Z",
+      "desc": "eaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760413601/n7m1u8elqkt6nww7wujf.png",
+      "status": "public",
+      "authorId": "1759989931529",
+      "authorEmail": "admin@gmail.com",
+      "isMine": true,
+      "id": "8469"
+    },
+    {
+      "id": "bebc",
+      "title": "e",
+      "category": "Emotions & Feelings",
+      "date": "2025-10-14",
+      "createdAt": "2025-10-14T03:46:55.688Z",
+      "desc": "e",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760413622/dgzrbnoyeyuvfhhxzjyj.png",
+      "status": "public",
+      "authorId": "1759989931529",
+      "authorEmail": "admin@gmail.com",
+      "isMine": true
+    },
+    {
+      "title": "test",
+      "category": "Emotions & Feelings",
+      "date": "2025-10-14",
+      "createdAt": "2025-10-14T03:47:44.122Z",
+      "desc": "aa",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760413667/lhm7xblqh2e0dmrsyn1w.png",
+      "status": "public",
+      "authorId": "1759989931529",
+      "authorEmail": "admin@gmail.com",
+      "isMine": true,
+      "id": "12ef"
+    },
+    {
+      "id": "64a2",
+      "title": "a",
+      "category": "Emotions & Feelings",
+      "date": "2025-10-14",
+      "createdAt": "2025-10-14T03:47:54.214Z",
+      "desc": "a",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760413680/ic5o5kbqi3ldr9cxaohe.png",
+      "status": "public",
+      "authorId": "1759989931529",
+      "authorEmail": "admin@gmail.com",
+      "isMine": true
+    },
+    {
+      "title": "ad",
+      "category": "Emotions & Feelings",
+      "date": "2025-10-14",
+      "createdAt": "2025-10-14T03:51:16.699Z",
+      "desc": "acdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760413883/ycojdcuz73dgrjw8bjdv.png",
+      "status": "public",
+      "authorId": "1759735440047",
+      "authorEmail": "khanh@gmail.com",
+      "isMine": true,
+      "id": "d3c7"
+    },
+    {
+      "title": "cds",
+      "category": "Emotions & Feelings",
+      "date": "2025-10-14",
+      "createdAt": "2025-10-14T03:52:31.758Z",
+      "desc": "cvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvdcvd",
+      "image": "https://res.cloudinary.com/dbh9eggj2/image/upload/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/c_fill,ar_16:9,g_auto,q_auto:good,f_auto/v1760413958/ud9oalcswz5zc9oavqsi.png",
+      "status": "public",
+      "authorId": "1759735440047",
+      "authorEmail": "khanh@gmail.com",
+      "isMine": true,
+      "id": "0447"
     }
   ],
   "members": [
@@ -271,12 +377,78 @@
       "createdAt": "2025-10-11T15:36:46.508Z"
     },
     {
-      "id": "1760208326542",
-      "postId": null,
+      "id": "1760275901213",
+      "postId": "c170",
+      "authorId": "1759688051508",
+      "authorEmail": "hib59986@gmail.com",
+      "text": "gsdc",
+      "createdAt": "2025-10-12T13:31:41.213Z"
+    },
+    {
+      "id": "1760275910775",
+      "postId": "e180",
+      "authorId": "1759688051508",
+      "authorEmail": "hib59986@gmail.com",
+      "text": "fgmnv",
+      "createdAt": "2025-10-12T13:31:50.775Z"
+    },
+    {
+      "id": "1760275920622",
+      "postId": "c7d0",
+      "authorId": "1759688051508",
+      "authorEmail": "hib59986@gmail.com",
+      "text": "hdtfth",
+      "createdAt": "2025-10-12T13:32:00.622Z"
+    },
+    {
+      "id": "1760275927222",
+      "postId": "ffe4",
+      "authorId": "1759688051508",
+      "authorEmail": "hib59986@gmail.com",
+      "text": "gdbdrf",
+      "createdAt": "2025-10-12T13:32:07.222Z"
+    },
+    {
+      "id": "1760275932195",
+      "postId": "4491",
+      "authorId": "1759688051508",
+      "authorEmail": "hib59986@gmail.com",
+      "text": "jkgtyj",
+      "createdAt": "2025-10-12T13:32:12.195Z"
+    },
+    {
+      "id": "1760335435384",
+      "postId": "e180",
       "authorId": "1759735440047",
       "authorEmail": "khanh@gmail.com",
-      "text": "vui ha",
-      "createdAt": "2025-10-11T18:45:26.542Z"
+      "text": "vsfd",
+      "createdAt": "2025-10-13T06:03:55.384Z"
+    },
+    {
+      "id": "1760413962120",
+      "postId": "d3c7",
+      "authorId": "1759735440047",
+      "authorEmail": "khanh@gmail.com",
+      "avatar": "https://i.pravatar.cc/80?u=khanh%40gmail.com",
+      "text": "cswaca",
+      "createdAt": "2025-10-14T03:52:42.120Z"
+    },
+    {
+      "id": "1760414222270",
+      "postId": "0447",
+      "authorId": "1759989931529",
+      "authorEmail": "admin@gmail.com",
+      "text": "tht là",
+      "createdAt": "2025-10-14T03:57:02.270Z"
+    },
+    {
+      "id": "1760414257048",
+      "postId": "0447",
+      "authorId": "1759735440047",
+      "authorEmail": "khanh@gmail.com",
+      "avatar": "https://i.pravatar.cc/80?u=khanh%40gmail.com",
+      "text": "thì '",
+      "createdAt": "2025-10-14T03:57:37.048Z"
     }
   ]
 }

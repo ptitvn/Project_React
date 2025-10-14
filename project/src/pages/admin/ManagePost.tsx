@@ -13,8 +13,10 @@ const CATES = "http://localhost:8080/categories";
 const COMMENTS_API = "http://localhost:8080/comments";
 const PAGE_SIZE = 5;
 const PLACEHOLDER = "/img/placeholder.png";
+const FEAT_PLACEHOLDER = "/img/placeholder.png";
+const FEAT_FRAME = "relative w-full aspect-[16/9] max-h-[360px] overflow-hidden rounded-lg";
 
-/* Chuẩn hoá URL ảnh + fallback */
+/* Ảnh list: chuẩn hoá URL + fallback */
 const normalizeImg = (src?: string) => {
   if (!src) return PLACEHOLDER;
   let s = String(src).trim();
@@ -79,13 +81,9 @@ const DetailModal: React.FC<{ post: Post; onClose: () => void }> = ({ post, onCl
     (async () => {
       try {
         setLoadingCmt(true);
-        const r = await axios.get<Comment[]>(COMMENTS_API, {
-          params: { postId: post.id, _sort: "createdAt", _order: "asc" },
-        });
+        const r = await axios.get<Comment[]>(COMMENTS_API, { params: { postId: post.id, _sort: "createdAt", _order: "asc" } });
         if (alive) setComments(Array.isArray(r.data) ? r.data : []);
-      } finally {
-        if (alive) setLoadingCmt(false);
-      }
+      } finally { if (alive) setLoadingCmt(false); }
     })();
     return () => { alive = false; };
   }, [post.id]);
@@ -102,7 +100,7 @@ const DetailModal: React.FC<{ post: Post; onClose: () => void }> = ({ post, onCl
       text,
       createdAt: new Date().toISOString(),
     };
-    try { await axios.post(COMMENTS_API, payload); } catch {}
+    try { await axios.post(COMMENTS_API, payload); } catch { }
     setComments((prev) => [...prev, payload]);
     setNewText("");
   };
@@ -112,7 +110,7 @@ const DetailModal: React.FC<{ post: Post; onClose: () => void }> = ({ post, onCl
     if (!c) return;
     if (!canDelete(c)) { alert("Bạn không có quyền xoá bình luận này."); return; }
     if (!confirm("Xoá bình luận này?")) return;
-    try { await axios.delete(`${COMMENTS_API}/${id}`); } catch {}
+    try { await axios.delete(`${COMMENTS_API}/${id}`); } catch { }
     setComments((prev) => prev.filter((x) => String(x.id) !== String(id)));
   };
 
@@ -120,7 +118,8 @@ const DetailModal: React.FC<{ post: Post; onClose: () => void }> = ({ post, onCl
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-      <div className="w-full max-w-5xl rounded-lg bg-white shadow-lg">
+      {/* Card giới hạn chiều cao */}
+      <div className="w-full max-w-5xl rounded-lg bg-white shadow-lg max-h-[90vh] overflow-y-auto">
         <div className="mx-auto max-w-5xl px-4 py-6">
           <button
             aria-label="Back"
@@ -140,11 +139,23 @@ const DetailModal: React.FC<{ post: Post; onClose: () => void }> = ({ post, onCl
             />
             <div className="flex-1">
               <div className="rounded-2xl border border-gray-200 bg-white/70 px-6 py-5 shadow-sm">
-                <h1 className="mb-1 text-center text-xl font-semibold text-gray-900 break-words">
+                <h1 className="text-center text-xl font-semibold text-gray-900 break-words">
                   {post.title}
                 </h1>
+
+                <div className="my-3">
+                  <div className={FEAT_FRAME}>
+                    <img
+                      src={normalizeImg((post as any)?.image) || FEAT_PLACEHOLDER}
+                      onError={imgFallback}
+                      alt={post.title}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  </div>
+                </div>
+
                 <p className="text-gray-800 leading-relaxed whitespace-pre-wrap" style={{ overflowWrap: "anywhere" }}>
-                  {post.desc}
+                  {(post as any)?.desc}
                 </p>
                 <div className="mt-2 flex items-center gap-4">
                   <Stat icon={<HandThumbUpIcon className="h-4 w-4" />} label={"0 Like"} />
@@ -237,24 +248,23 @@ const ManagePost: React.FC = () => {
   const location = useLocation();
   const posts = useSelector((s: RootState) => s.posts.items);
 
-  // ======= GUARD: chặn truy cập khi không đăng nhập + chặn Back =======
+  // GUARD
   React.useEffect(() => {
     const check = () => {
       if (!sessionStorage.getItem("authUser")) {
         navigate("/login", { replace: true, state: { msg: "Vui lòng đăng nhập để tiếp tục." } });
       }
     };
-    check(); // khi mount
+    check();
     window.addEventListener("auth:changed", check);
     window.addEventListener("auth:logout", check);
-    window.addEventListener("popstate", check); // khi back/forward
+    window.addEventListener("popstate", check);
     return () => {
       window.removeEventListener("auth:changed", check);
       window.removeEventListener("auth:logout", check);
       window.removeEventListener("popstate", check);
     };
   }, [navigate]);
-  // ================================================================
 
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
@@ -270,9 +280,7 @@ const ManagePost: React.FC = () => {
       try {
         const r = await axios.get<Category[]>(CATES);
         setCategories(Array.isArray(r.data) ? r.data : []);
-      } catch {
-        setCategories([]);
-      }
+      } catch { setCategories([]); }
     })();
   }, []);
 
@@ -323,6 +331,7 @@ const ManagePost: React.FC = () => {
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   React.useEffect(() => { setPage(1); }, [searchKey, filtered.length]);
   React.useEffect(() => { if (page > totalPages) setPage(totalPages); }, [page, totalPages]);
+
   const pageItems = React.useMemo(() => {
     const start = (page - 1) * PAGE_SIZE;
     return filtered.slice(start, start + PAGE_SIZE);
@@ -377,9 +386,9 @@ const ManagePost: React.FC = () => {
                     <h3 className="font-semibold break-words">{post.title}</h3>
                     <span className="text-gray-500 text-sm leading-none">↗</span>
                   </div>
-
-                  <p className="text-sm text-gray-600 mb-3 break-words">
-                    {post.desc && post.desc.length > 160 ? post.desc.slice(0, 160).trim() + "…" : (post.desc || "")}
+                  {/* ẩn nội dung thành 2 */}
+                  <p className="text-sm text-gray-600 mb-3 whitespace-pre-wrap [overflow-wrap:anywhere] line-clamp-2">
+                    {post.desc || ""}
                   </p>
 
                   <div className="flex items-center gap-3">
@@ -440,16 +449,20 @@ const ManagePost: React.FC = () => {
 
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-          <div className="w-full max-w-xl rounded-lg bg-white p-6 shadow-lg">
-            <AddArticleForm
-              categories={categories}
-              initial={editing || undefined}
-              onClose={() => setOpen(false)}
-              onSaved={async () => { setOpen(false); await load(); }}
-            />
+          <div className="w-full max-w-xl rounded-lg shadow-lg overflow-hidden">
+            <div className="bg-white p-6 max-h-[95vh] overflow-y-auto">
+              <AddArticleForm
+                categories={categories}
+                initial={editing || undefined}
+                onClose={() => setOpen(false)}
+                onSaved={async () => { setOpen(false); await load(); }}
+              />
+            </div>
           </div>
         </div>
       )}
+
+
 
       {detailPost && <DetailModal post={detailPost} onClose={() => setDetailPost(null)} />}
     </div>

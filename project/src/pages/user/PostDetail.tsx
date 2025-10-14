@@ -1,20 +1,24 @@
-// src/pages/PostDetail.tsx
 import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { HandThumbUpIcon, ChatBubbleLeftIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 
-/* ===== API ===== */
+/* API  */
 const POSTS = "http://localhost:8080/posts";
 const USERS = "http://localhost:8080/users";
 const COMMENTS = "http://localhost:8080/comments";
 
-/* ===== Types ===== */
+/* UI const */
+const PLACEHOLDER = "/img/placeholder.png";
+const FEAT_FRAME = "relative w-full aspect-[16/9] max-h-[360px] overflow-hidden rounded-lg";
+
+/* Types  */
 type Post = {
   id: string | number;
   title: string;
   desc?: string;
   content?: string;
+  image?: string;
   authorId?: string | number;
   authorEmail?: string;
   likes?: number;
@@ -34,7 +38,6 @@ type Comment = {
   createdAt?: string;
 };
 
-/* ===== UI bits ===== */
 const Stat: React.FC<{ icon: React.ReactNode; label: string }> = ({ icon, label }) => (
   <div className="flex items-center gap-1 text-gray-500">
     <span className="h-4 w-4">{icon}</span>
@@ -44,20 +47,12 @@ const Stat: React.FC<{ icon: React.ReactNode; label: string }> = ({ icon, label 
 
 const avatarUrl = (key: string) => `https://i.pravatar.cc/80?u=${encodeURIComponent(key || "u")}`;
 const getAuth = () => {
-  try {
-    const raw = sessionStorage.getItem("authUser");
-    return raw ? JSON.parse(raw) : null;
-  } catch {
-    return null;
-  }
+  try { const raw = sessionStorage.getItem("authUser"); return raw ? JSON.parse(raw) : null; }
+  catch { return null; }
 };
 
-/* ===== Comment Row ===== */
-const CommentRow: React.FC<{
-  c: Comment;
-  me: any;
-  onDelete: (id: string | number) => void;
-}> = ({ c, me, onDelete }) => {
+/* Comment Row */
+const CommentRow: React.FC<{ c: Comment; me: any; onDelete: (id: string | number) => void; }> = ({ c, me, onDelete }) => {
   const isMine =
     (me?.id != null && String(me.id) === String(c.userId ?? "")) ||
     (!!me?.email && me.email.toLowerCase() === String(c.userEmail || "").toLowerCase());
@@ -81,10 +76,7 @@ const CommentRow: React.FC<{
               Delete
             </button>
           )}
-          <div
-            className="text-gray-800 whitespace-pre-wrap"
-            style={{ overflowWrap: "anywhere", wordBreak: "break-word" }}
-          >
+          <div className="text-gray-800 whitespace-pre-wrap" style={{ overflowWrap: "anywhere", wordBreak: "break-word" }}>
             {c.text}
           </div>
           <div className="mt-2 flex items-center gap-4">
@@ -97,13 +89,12 @@ const CommentRow: React.FC<{
   );
 };
 
-/* ===== Page ===== */
+/* Page  */
 const PostDetail: React.FC = () => {
   const navigate = useNavigate();
   const { id: idParam } = useParams<{ id: string }>();
   const location = useLocation();
 
-  // Có thể được truyền qua location.state
   const postFromState = (location.state as any)?.post as Post | undefined;
   const postId = postFromState?.id ?? idParam;
 
@@ -144,7 +135,6 @@ const PostDetail: React.FC = () => {
         if (!p || !alive) return;
         setPost(p);
 
-        // Owner by authorId or authorEmail (nếu có)
         try {
           if (p.authorId != null) {
             const { data } = await axios.get<User[]>(USERS, { params: { id: p.authorId } });
@@ -155,24 +145,18 @@ const PostDetail: React.FC = () => {
           } else {
             setOwner(null);
           }
-        } catch {
-          setOwner(null);
-        }
+        } catch { setOwner(null); }
 
         const rc = await axios.get<Comment[]>(COMMENTS, {
           params: { postId: p.id, _sort: "createdAt", _order: "asc" },
         });
         if (alive) setComments(Array.isArray(rc.data) ? rc.data : []);
-      } catch {
-        /* giữ UI yên lặng */
-      }
+      } catch 
     };
 
     load();
-    return () => {
-      alive = false;
-    };
-  }, [postId]); // eslint-disable-line react-hooks/exhaustive-deps
+    return () => { alive = false; };
+  }, [postId]); 
 
   /* Actions */
   const addComment = async () => {
@@ -210,7 +194,6 @@ const PostDetail: React.FC = () => {
     } catch {}
   };
 
-  /* ===== Render ===== */
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-5xl px-4 py-6">
@@ -228,10 +211,19 @@ const PostDetail: React.FC = () => {
             <h1 className="mb-2 text-center text-xl font-semibold text-gray-900 break-words">
               {post?.title || "Untitled"}
             </h1>
-            <p
-              className="text-gray-800 leading-relaxed whitespace-pre-wrap"
-              style={{ overflowWrap: "anywhere", wordBreak: "break-word" }}
-            >
+
+            <div className="my-3">
+              <div className={FEAT_FRAME}>
+                <img
+                  src={(post?.image as string) || PLACEHOLDER}
+                  onError={(e) => (e.currentTarget.src = PLACEHOLDER)}
+                  alt={post?.title || "post image"}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </div>
+            </div>
+
+            <p className="text-gray-800 leading-relaxed whitespace-pre-wrap" style={{ overflowWrap: "anywhere", wordBreak: "break-word" }}>
               {content}
             </p>
             <div className="mt-3 flex items-center gap-4">

@@ -9,9 +9,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { HandThumbUpIcon, ChatBubbleLeftIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 
-/* ===== Constants ===== */
+/* Constants */
 const COMMENTS_API = "http://localhost:8080/comments";
 const PAGE_SIZE = 5;
+const FEAT_PLACEHOLDER = "/img/placeholder.png";
+const FEAT_FRAME = "relative w-full aspect-[16/9] max-h-[360px] overflow-hidden rounded-lg";
 const categoryColors: Record<string, string> = {
   "Daily Journal": "bg-purple-100 text-purple-700",
   "Work & Career": "bg-blue-100 text-blue-700",
@@ -19,13 +21,13 @@ const categoryColors: Record<string, string> = {
   "Emotions & Feelings": "bg-pink-100 text-pink-700",
 };
 
-/* ===== Helpers ===== */
+/* Helpers  */
 const normalize = (s: string) =>
   (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 const shorten = (s: string, max = 140) =>
   s && s.length > max ? s.slice(0, max).trim() + "…" : s || "";
 
-/* ===== Small stat pill ===== */
+/*  Small stat pill */
 const Stat: React.FC<{ icon: React.ReactNode; label: string }> = ({ icon, label }) => (
   <div className="flex items-center gap-1 text-gray-500">
     <span className="h-4 w-4">{icon}</span>
@@ -33,7 +35,7 @@ const Stat: React.FC<{ icon: React.ReactNode; label: string }> = ({ icon, label 
   </div>
 );
 
-/* ===== Detail modal ===== */
+/*Detail modal*/
 const DetailModal: React.FC<{ post: any; onClose: () => void }> = ({ post, onClose }) => {
   const [showAll, setShowAll] = React.useState(false);
   const [comments, setComments] = React.useState<any[]>([]);
@@ -82,7 +84,7 @@ const DetailModal: React.FC<{ post: any; onClose: () => void }> = ({ post, onClo
       text,
       createdAt: new Date().toISOString(),
     };
-    try { await axios.post(COMMENTS_API, payload); } catch { }
+    try { await axios.post(COMMENTS_API, payload); } catch {}
     setComments((prev) => [...prev, payload]);
     setNewText("");
   };
@@ -92,7 +94,7 @@ const DetailModal: React.FC<{ post: any; onClose: () => void }> = ({ post, onClo
     if (!c) return;
     if (!isMine(c)) { alert("Bạn chỉ có thể xoá bình luận của mình."); return; }
     if (!confirm("Xoá bình luận này?")) return;
-    try { await axios.delete(`${COMMENTS_API}/${id}`); } catch { }
+    try { await axios.delete(`${COMMENTS_API}/${id}`); } catch {}
     setComments((prev) => prev.filter((x) => String(x.id) !== String(id)));
   };
 
@@ -101,7 +103,7 @@ const DetailModal: React.FC<{ post: any; onClose: () => void }> = ({ post, onClo
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-      <div className="w-full max-w-5xl rounded-lg bg-white shadow-lg">
+      <div className="w-full max-w-5xl rounded-lg bg-white shadow-lg max-h-[90vh] overflow-y-auto">
         <div className="mx-auto max-w-5xl px-4 py-6">
           <button
             aria-label="Back"
@@ -121,9 +123,21 @@ const DetailModal: React.FC<{ post: any; onClose: () => void }> = ({ post, onClo
             />
             <div className="flex-1">
               <div className="rounded-2xl border border-gray-200 bg-white/70 px-6 py-5 shadow-sm">
-                <h1 className="mb-1 text-center text-xl font-semibold text-gray-900 break-words">
+                <h1 className="text-center text-xl font-semibold text-gray-900 break-words">
                   {post.title}
                 </h1>
+
+                <div className="my-3">
+                  <div className={FEAT_FRAME}>
+                    <img
+                      src={post.image || FEAT_PLACEHOLDER}
+                      onError={(e) => (e.currentTarget.src = FEAT_PLACEHOLDER)}
+                      alt={post.title}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  </div>
+                </div>
+
                 <p className="text-gray-800 leading-relaxed break-words break-all whitespace-pre-wrap">
                   {post.desc}
                 </p>
@@ -215,26 +229,19 @@ const BlogPage: React.FC = () => {
   const location = useLocation();
   const posts = useSelector((s: RootState) => s.posts.items);
 
-  /* ===== AUTH GUARD: chặn truy cập khi chưa đăng nhập & chống back ===== */
+  /* AUTH GUARD */
   React.useEffect(() => {
     const ensure = () => {
       if (!sessionStorage.getItem("authUser")) {
-        navigate("/login", {
-          replace: true,
-          state: { msg: "Vui lòng đăng nhập để tiếp tục." },
-        });
+        navigate("/login", { replace: true, state: { msg: "Vui lòng đăng nhập để tiếp tục." } });
       }
     };
-
-    ensure(); // khi mount và khi back (location.key đổi)
-
+    ensure();
     const onStorage = (e: StorageEvent) => { if (e.key === "authUser") ensure(); };
     const onAuth = () => ensure();
-
     window.addEventListener("storage", onStorage);
     window.addEventListener("auth:changed", onAuth);
     window.addEventListener("auth:logout", onAuth);
-
     return () => {
       window.removeEventListener("storage", onStorage);
       window.removeEventListener("auth:changed", onAuth);
@@ -342,19 +349,18 @@ const BlogPage: React.FC = () => {
       <Header />
 
       <main className="container mx-auto px-6 py-10 flex-1">
-        {/* ===== Recent (giữ layout hiện tại, chỉnh cân 2 bên & clean) ===== */}
+        {/* Recent */}
         {recentPosts.length > 0 && !searchKey && (
           <section className="mb-12">
             <h2 className="text-2xl font-bold mb-6">Recent blog posts</h2>
 
             <div className="grid md:grid-cols-3 gap-6 items-stretch">
-              {/* LEFT: col-span-2 */}
+              {/* LEFT */}
               <article
                 className="md:col-span-2 rounded overflow-hidden cursor-pointer"
                 onClick={() => setDetailPost(recentPosts[0])}
                 title="Xem chi tiết"
               >
-                {/* Ảnh: cao cố định theo breakpoint + crop lệch sang phải cho giống mẫu */}
                 <div className="relative w-full overflow-hidden rounded">
                   <img
                     src={recentPosts[0].image}
@@ -366,14 +372,16 @@ const BlogPage: React.FC = () => {
                 <div className="p-4">
                   <p className="text-xs text-gray-500 mb-1">Date: {recentPosts[0].date}</p>
                   <h3 className="font-semibold text-xl mb-2 break-words">{recentPosts[0].title}</h3>
-                  <p className="text-sm text-gray-600 mb-3 break-words line-clamp-2">{recentPosts[0].desc}</p>
+
+                  <p className="text-sm text-gray-600 mb-3 whitespace-pre-wrap [overflow-wrap:anywhere] line-clamp-2">
+                    {recentPosts[0].desc}
+                  </p>
                   <span className={`w-fit inline-flex text-xs px-3 py-1 rounded-full ${categoryColors[recentPosts[0].category] || "bg-gray-100 text-gray-700"}`}>
                     {recentPosts[0].category}
                   </span>
                 </div>
               </article>
 
-              {/* RIGHT */}
               <div className="grid grid-rows-2 gap-6">
                 {recentPosts.slice(1).map((post) => (
                   <article
@@ -386,11 +394,13 @@ const BlogPage: React.FC = () => {
                       <img src={post.image} alt={post.title} className="absolute inset-0 h-full w-full object-cover" />
                     </div>
 
-                    <div className="p-4 flex-1 flex flex-col justify-between">
-                      <div>
+                    <div className="p-4 flex-1 min-w-0 flex flex-col justify-between">
+                      <div className="min-w-0">
                         <p className="text-xs text-indigo-600 mb-1">Date: {post.date}</p>
                         <h3 className="font-semibold text-base mb-2 break-words">{post.title}</h3>
-                        <p className="text-sm text-gray-600 break-words line-clamp-2">{post.desc}</p>
+                        <p className="text-sm text-gray-600 whitespace-pre-wrap [overflow-wrap:anywhere] line-clamp-2">
+                          {post.desc}
+                        </p>
                       </div>
                       <span className={`w-fit inline-flex text-xs px-3 py-1 rounded-full mt-2 ${categoryColors[post.category] || "bg-gray-100 text-gray-700"}`}>
                         {post.category}
@@ -407,9 +417,8 @@ const BlogPage: React.FC = () => {
         <div className="mb-3 flex items-center gap-6">
           <button
             type="button"
-            onClick={() => setActiveCate(null)}              
-            className={`text-sm font-medium ${activeCate == null ? "text-blue-600" : "text-gray-600 hover:text-gray-900 hover:underline"
-              }`}
+            onClick={() => setActiveCate(null)}
+            className={`text-sm font-medium ${activeCate == null ? "text-blue-600" : "text-gray-600 hover:text-gray-900 hover:underline"}`}
             title="Hiển thị tất cả bài viết"
           >
             All blog posts
@@ -430,9 +439,8 @@ const BlogPage: React.FC = () => {
               <button
                 key={name}
                 type="button"
-                onClick={() => setActiveCate(name)}           // <-- luôn đặt category
-                className={`cursor-pointer hover:underline ${activeCate === name ? "font-semibold text-blue-600" : ""
-                  }`}
+                onClick={() => setActiveCate(name)}
+                className={`cursor-pointer hover:underline ${activeCate === name ? "font-semibold text-blue-600" : ""}`}
                 title="Lọc theo chủ đề"
               >
                 {name}
@@ -440,7 +448,6 @@ const BlogPage: React.FC = () => {
             ))}
           </div>
         )}
-
 
         {/* Grid list */}
         <div className="grid md:grid-cols-3 gap-6">
@@ -455,7 +462,9 @@ const BlogPage: React.FC = () => {
                   <h3 className="font-semibold break-words">{post.title}</h3>
                   <span className="text-gray-500 text-sm">↗</span>
                 </div>
-                <p className="text-sm text-gray-600 mb-3 break-words">{shorten(post.desc, 140)}</p>
+                <p className="text-sm text-gray-600 mb-3 whitespace-pre-wrap [overflow-wrap:anywhere] line-clamp-2">
+                  {post.desc}
+                </p>
                 <span className={`w-fit inline-flex text-xs px-3 py-1 rounded-full ${categoryColors[post.category] || "bg-gray-100 text-gray-700"}`}>
                   {post.category}
                 </span>
@@ -497,7 +506,7 @@ const BlogPage: React.FC = () => {
       <Footer />
 
       {/* Detail modal */}
-      {detailPost && <DetailModal post={detailPost} onClose={() => setDetailPost(null)} />}
+      {detailPost && <DetailModal  post={detailPost} onClose={() => setDetailPost(null)} />}
     </div>
   );
 };

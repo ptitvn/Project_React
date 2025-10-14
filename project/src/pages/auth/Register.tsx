@@ -1,4 +1,3 @@
-// src/pages/auth/Register.tsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isEmailTaken, registerUser } from "../../services/authApi";
@@ -38,14 +37,13 @@ const Register: React.FC = () => {
 
     if (!email.trim()) e.email = "Email không được để trống";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = "Email phải đúng định dạng";
-
+    if(!e.email ) 
     if (!password) e.password = "Mật khẩu không được để trống";
     else if (password.length < 6) e.password = "Mật khẩu tối thiểu 6 ký tự";
 
     if (!confirm) e.confirm = "Mật khẩu xác nhận không được để trống";
     else if (confirm !== password) e.confirm = "Mật khẩu phải trùng khớp";
 
-    // Chỉ check trùng email khi format hợp lệ
     if (!e.email) {
       const taken = await isEmailTaken(email.trim());
       if (taken) e.email = "Email đã tồn tại";
