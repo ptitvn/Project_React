@@ -151,7 +151,9 @@ const PostDetail: React.FC = () => {
           params: { postId: p.id, _sort: "createdAt", _order: "asc" },
         });
         if (alive) setComments(Array.isArray(rc.data) ? rc.data : []);
-      } catch 
+      } catch (error) {
+        
+      }
     };
 
     load();
