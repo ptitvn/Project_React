@@ -37,7 +37,6 @@ const Register: React.FC = () => {
 
     if (!email.trim()) e.email = "Email không được để trống";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = "Email phải đúng định dạng";
-    if(!e.email ) 
     if (!password) e.password = "Mật khẩu không được để trống";
     else if (password.length < 6) e.password = "Mật khẩu tối thiểu 6 ký tự";
 
